@@ -1,20 +1,20 @@
-inventory = 0
-rejected_entries = 0
-quantity = input("Enter item quantity (or 'quit' to finish): ")
+def get_valid_input():
+    inventory = 0
+    failed_entries = 0
+    while True:
+        quantity = input("Enter item quantity (or 'quit' to finish): ")
+        if quantity == "quit":
+            return inventory, failed_entries
+        elif not quantity.isdigit():
+            failed_entries += 1
+            print("Invalid input. Please enter a valid number.")
+        elif inventory + int(quantity) > 500:
+            failed_entries += 1
+            print("Quantity exceeds maximum limit of 500. Entry rejected.")
+        else:
+            inventory += int(quantity)
 
-while quantity != "quit":
-    if not quantity.isdigit():
-        print("Invalid input. Please enter a valid number.")
-        rejected_entries += 1
-        quantity = input("Enter item quantity (or 'quit' to finish): ")
-    elif inventory + int(quantity) > 500:
-        print("Quantity exceeds maximum limit of 500. Entry rejected.")
-        rejected_entries += 1
-        break
-    else:
-        inventory += int(quantity)
-        print(f"{quantity} added.")
-        quantity = input("Enter item quantity (or 'quit' to finish): ")
+inventory, failed_entries = get_valid_input()
 
 print(f"Total inventory: {inventory}")
-print(f"Rejected entries: {rejected_entries}")
+print(f"Failed entries: {failed_entries}")
