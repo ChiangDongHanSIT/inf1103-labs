@@ -14,3 +14,9 @@ def process_delivery(current_total, new_value):
 def calculate_tax(amount):
     tax_rate = 0.10
     return amount * tax_rate
+
+def generate_report(total_units,failed_attempts):
+    print("\nInventory Report")
+    print("----------------")
+    print(f"Total units in inventory: {total_units}")
+    print(f"Failed attempts: {failed_attempts}")
