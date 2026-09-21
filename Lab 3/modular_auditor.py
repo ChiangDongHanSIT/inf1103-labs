@@ -2,16 +2,17 @@ inventory = 0
 failed_attempts = 0
 
 def get_valid_input():
-    while True:
-        quantity = input("Enter item quantity (or 'quit' to finish): ")
-        if quantity == "quit":
-            return "quit"
-        elif "-" in quantity:
-            print("Invalid input. Please enter a positive number.")
-        elif not quantity.isdigit():
-            print("Invalid input. Please enter a valid number.")
-        else:
-            return int(quantity)
+    quantity = input("Enter item quantity (or 'quit' to finish): ")
+    if quantity == "quit":
+        return "quit"
+    elif "-" in quantity:
+        print("Invalid input. Please enter a positive number.")
+        return "invalid"
+    elif not quantity.isdigit():
+        print("Invalid input. Please enter a valid number.")
+        return "invalid"
+    else:
+        return int(quantity)
         
 def process_delivery(current_total, new_value):
     return current_total + new_value
@@ -32,9 +33,14 @@ while True:
     if user_input == "quit":
         generate_report(inventory, failed_attempts)
         break
-    elif user_input + inventory > 500:
-        print("Error: Adding this item would exceed the maximum inventory capacity of 500 units.")
+    elif user_input == "invalid":
         failed_attempts += 1
+        continue
+    elif user_input + inventory > 500:
+        failed_attempts += 1
+        print("Error: Adding this item would exceed the maximum inventory capacity of 500 units.")
+        generate_report(inventory, failed_attempts)
+        break
     else:
         inventory = process_delivery(inventory, user_input)
         calculated_tax = calculate_tax(user_input)
