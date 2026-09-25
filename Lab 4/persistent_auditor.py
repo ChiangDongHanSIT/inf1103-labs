@@ -1,5 +1,8 @@
+import os
+
 inventory = 0
 failed_attempts = 0
+inventory_list = []
 
 def get_valid_input():
     quantity = input("Enter item quantity (or 'quit' to finish): ")
@@ -29,7 +32,13 @@ def generate_report(total_units,failed_attempts):
     print(f"Total tax collected: ${calculate_tax(total_units):.2f}")
 
 def load_inventory():
-    open("inventory.txt", "a").close()
+    if os.path.exists("inventory.txt"):
+        with open("inventory.txt", "r") as file:
+            for line in file:
+                inventory_list.append(int(line.strip()))
+    else:
+        with open("inventory.txt", "w") as file:
+            pass 
 
 load_inventory()
 
@@ -49,5 +58,7 @@ while True:
     else:
         inventory = process_delivery(inventory, user_input)
         calculated_tax = calculate_tax(user_input)
+        inventory_list.append(user_input)
         print(f"Current inventory: {inventory}")
+        print(f"Items in inventory: {inventory_list}")
         print(f"Tax for this transaction: ${calculated_tax:.2f}")
