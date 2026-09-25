@@ -27,37 +27,56 @@ def calculate_tax(amount):
 
 def generate_report():
     print("Current Orders:\n")
-    for item in inventory_list:
-        if item[1] == "":
-            print("No current orders.")
-        else:
+    if inventory_list == []:
+        print("No current orders.")
+    else:
+        for item in inventory_list:
             print(f"{item[0]}, {item[1]}, {item[2]}")
 
 def load_inventory():
-    if os.path.exists("orders.txt"):
-        with open("orders.txt", "r") as file:
+    global inventory
+    global item_id
+    if os.path.exists("inventory.txt"):
+        with open("inventory.txt", "r") as file:
             for line in file:
-                item_id, product_name, quantity = line.strip().split(",")
-                inventory_list.append((int(item_id), product_name, int(quantity)))
+                if line.startswith("Total:"):
+                    inventory = int(line.strip().split(":")[1])
+                else:
+                    item_id, product_name, quantity = line.strip().split(",")
+                    item_id = int(item_id)
+                    quantity = int(quantity)
+                    inventory += quantity
+                    inventory_list.append((item_id, product_name, quantity))
     else:
-        with open("orders.txt", "w") as file:
+        with open("inventory.txt", "w") as file:
             pass 
 
 def save_inventory(item_id, product_name, quantity):
-    with open("orders.txt", "w") as file:
-        for item_id, product_name, quantity in inventory_list:
-            if os.path.exists("orders.txt"):
-                with open("orders.txt", "a") as file:
-                    file.write(f"{item_id},{product_name},{quantity}\n")
+    if os.path.exists("inventory.txt"):
+        with open("inventory.txt", "a") as file:
+            file.write(f"{item_id},{product_name},{quantity}\n")
+    else:
+        with open("inventory.txt", "w") as file:
+            file.write(f"{item_id},{product_name},{quantity}\n")
+
+def save_total_inventory(inventory):
+    with open("inventory.txt", "a") as file:
+        file.write(f"Total: {inventory}\n")
 
 load_inventory()
 
 while True:
     generate_report()
     product_name = input("Enter Product Name: ")
-    user_input = get_valid_input()
-    if user_input == "quit" or product_name == "quit":
+    if product_name == "quit":
         generate_report()
+        save_total_inventory(inventory)
+        break
+    else:
+        user_input = get_valid_input()
+    if user_input == "quit":
+        generate_report()
+        save_total_inventory(inventory)
         break
     elif user_input == "invalid":
         failed_attempts += 1
@@ -75,4 +94,4 @@ while True:
         save_inventory(item_id, product_name, user_input)
         print(f"New Order Added:")
         print(f"{item_id}, {product_name}, {user_input}")
-        print(f"\nOrder successfully saved to orders.txt")
+        print(f"\nOrder successfully saved to inventory.txt")

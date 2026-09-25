@@ -1,0 +1,5 @@
+1001,Laptop,2
+1002,Mouse,1
+Total: 3
+1003,Phone Stand,4
+Total: 7
