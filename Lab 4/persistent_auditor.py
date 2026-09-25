@@ -58,7 +58,7 @@ while True:
     else:
         inventory = process_delivery(inventory, user_input)
         calculated_tax = calculate_tax(user_input)
-        inventory_list.append(user_input)
+        inventory_list.append(calculated_tax)
         print(f"Current inventory: {inventory}")
         print(f"Items in inventory: {inventory_list}")
         print(f"Tax for this transaction: ${calculated_tax:.2f}")
