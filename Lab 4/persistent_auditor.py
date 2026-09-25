@@ -2,10 +2,11 @@ import os
 
 inventory = 0
 failed_attempts = 0
+item_id = 1000
 inventory_list = []
 
 def get_valid_input():
-    quantity = input("Enter item quantity (or 'quit' to finish): ")
+    quantity = input("Enter Quantity: ")
     if quantity == "quit":
         return "quit"
     elif "-" in quantity:
@@ -25,8 +26,7 @@ def calculate_tax(amount):
     return amount * tax_rate
 
 def generate_report(total_units,failed_attempts):
-    print("\nInventory Report")
-    print("----------------")
+    print("\nCurrent Orders:")
     print(f"Total units in inventory: {total_units}")
     print(f"Failed attempts: {failed_attempts}")
     print(f"Total tax collected: ${calculate_tax(total_units):.2f}")
@@ -35,16 +35,23 @@ def load_inventory():
     if os.path.exists("inventory.txt"):
         with open("inventory.txt", "r") as file:
             for line in file:
-                inventory_list.append(int(line.strip()))
+                item_id, product_name, quantity = line.strip().split(",")
+                inventory_list.append((int(item_id), product_name, int(quantity)))
     else:
         with open("inventory.txt", "w") as file:
             pass 
 
+def save_inventory(item_id, product_name, quantity):
+    with open("inventory.txt", "w") as file:
+        for item_id, product_name, quantity in inventory_list:
+            file.write(f"{item_id},{product_name},{quantity}\n")
+
 load_inventory()
 
 while True:
+    product_name = input("Enter Product Name: ")
     user_input = get_valid_input()
-    if user_input == "quit":
+    if user_input == "quit" or product_name == "quit":
         generate_report(inventory, failed_attempts)
         break
     elif user_input == "invalid":
@@ -58,7 +65,7 @@ while True:
     else:
         inventory = process_delivery(inventory, user_input)
         calculated_tax = calculate_tax(user_input)
-        inventory_list.append(calculated_tax)
-        print(f"Current inventory: {inventory}")
-        print(f"Items in inventory: {inventory_list}")
-        print(f"Tax for this transaction: ${calculated_tax:.2f}")
+        item_id += 1
+        inventory_list.append((item_id, product_name, user_input))
+        save_inventory(item_id, product_name, user_input)
+        print(f"New Order Added:\n {item_id}, {product_name}, {user_input}")
