@@ -22,3 +22,15 @@ def update_stock(product_id, new_stock_quantity):
     else:
         print(f"Product ID {product_id} not found. Cannot update stock.")
 
+def search_product(product_id):
+    if product_id in inventory_items:
+        product = inventory_items[product_id]
+        print("Product Found")
+        print("----------------")
+        print(f"ID: {product_id}")
+        print(f"Name: {product['product_name']}")
+        print(f"Price: ${product['product_price']:.2f}")
+        print(f"Stock: {product['stock_quantity']}")
+        print("----------------")
+    else:
+        print(f"Product ID {product_id} not found.")
