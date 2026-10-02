@@ -54,3 +54,11 @@ def load_inventory(file_path):
         print(f"File {file_path} not found. Starting with an empty inventory.")
     except json.JSONDecodeError:
         print(f"Error decoding JSON from {file_path}. Starting with an empty inventory.")
+
+def save_inventory(file_path):
+    try:
+        with open(file_path, 'w') as file:
+            json.dump(inventory_items, file, indent=4)
+        print("Inventory saved successfully to JSON file.")
+    except Exception as e:
+        print(f"Error saving inventory to {file_path}: {e}")
