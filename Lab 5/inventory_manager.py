@@ -34,3 +34,10 @@ def search_product(product_id):
         print("----------------")
     else:
         print(f"Product ID {product_id} not found.")
+
+def display_all():
+    print("Current Inventory")
+    print("----------------")
+    for product_id, product in inventory_items.items():
+        print(f"ID: {product_id}| Name: {product['product_name']} | Price: ${product['product_price']:.2f} | Stock: {product['stock_quantity']}")
+    print("----------------")
