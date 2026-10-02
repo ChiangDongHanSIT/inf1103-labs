@@ -1,0 +1,22 @@
+{
+    "P001": {
+        "product_name": "Laptop",
+        "product_price": 1200.0,
+        "stock_quantity": 15
+    },
+    "P002": {
+        "product_name": "Mouse",
+        "product_price": 25.5,
+        "stock_quantity": 40
+    },
+    "P003": {
+        "product_name": "Keyboard",
+        "product_price": 45.0,
+        "stock_quantity": 25
+    },
+    "P004": {
+        "product_name": "Monitor",
+        "product_price": 299.99,
+        "stock_quantity": 20
+    }
+}
