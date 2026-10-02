@@ -13,4 +13,12 @@ def add_product(product_id, product_name, product_price, stock_quantity):
             "product_price": product_price,
             "stock_quantity": stock_quantity
         }
-        print(f"Product {product_name} added successfully.")
+        print("Product added successfully!")
+
+def update_stock(product_id, new_stock_quantity):
+    if product_id in inventory_items:
+        inventory_items[product_id]["stock_quantity"] = new_stock_quantity
+        print("Stock updated successfully!")
+    else:
+        print(f"Product ID {product_id} not found. Cannot update stock.")
+
