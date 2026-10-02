@@ -1,0 +1,3 @@
+1001,Laptop,1
+1002,Mouse,3
+Total: 4
