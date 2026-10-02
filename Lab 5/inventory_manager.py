@@ -1,3 +1,5 @@
+import json
+
 inventory_items = {
     "P001": {"product_name": "Laptop", "product_price": 1200.00, "stock_quantity": 15},
     "P002": {"product_name": "Mouse", "product_price": 25.50, "stock_quantity": 40},
@@ -41,3 +43,14 @@ def display_all():
     for product_id, product in inventory_items.items():
         print(f"ID: {product_id}| Name: {product['product_name']} | Price: ${product['product_price']:.2f} | Stock: {product['stock_quantity']}")
     print("----------------")
+
+def load_inventory(file_path):
+    global inventory_items
+    try:
+        with open(file_path, 'r') as file:
+            inventory_items = json.load(file)
+        print("Inventory loaded successfully from JSON file.")
+    except FileNotFoundError:
+        print(f"File {file_path} not found. Starting with an empty inventory.")
+    except json.JSONDecodeError:
+        print(f"Error decoding JSON from {file_path}. Starting with an empty inventory.")
