@@ -1,17 +1,20 @@
 class Product:
+    def __init__(self, product_id, name, price, stock):
+        self.__product_id = product_id
+        self.__name = name
+        self.__price = price
+        self.__stock = stock
 
-    def __init__(self, product):
-        self.__product_id = 1000
-        self.__product = product
-        self.__price = 0.0
-        self.__stock = 0
+    def get_product_id(self):
+        return self.__product_id
 
     def update_stock(self, quantity):
-        self.__stock += quantity
-        print(f"{quantity} has been added to stock.")
+        if quantity < 0:
+            print("Stock cannot be negative.")
+            return False
+        self.__stock = quantity
+        return True
 
     def display_information(self):
-        print("Product_ID: {self.__product_id}")
-        print("Product Name: {self.__product}")
-        print("Product Price: {self.__price}")
-        print("Product Stock: {self.__stock}")
+        print(f"ID: {self.__product_id} | Name: {self.__name} | "
+              f"Price: ${self.__price:.2f} | Stock: {self.__stock}")
