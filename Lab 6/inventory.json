@@ -18,5 +18,10 @@
         "product_name": "Thumbdrive",
         "product_price": 10.0,
         "stock_quantity": 10
+    },
+    "P005": {
+        "product_name": "Monitor",
+        "product_price": 200.0,
+        "stock_quantity": 5
     }
 }
