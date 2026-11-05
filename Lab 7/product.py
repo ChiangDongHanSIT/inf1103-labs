@@ -8,7 +8,6 @@ class Product(ABC):
         self.__price = price
         self.__stock = stock
 
-    # Getter methods
     def get_product_id(self) -> str:
         return self.__product_id
 
@@ -21,7 +20,6 @@ class Product(ABC):
     def get_stock(self) -> int:
         return self.__stock
 
-    # Stock modification logic
     def update_stock(self, quantity: int) -> bool:
         if quantity < 0:
             print("Stock cannot be negative.")
