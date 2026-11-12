@@ -1,0 +1,22 @@
+{
+    "P001": {
+        "product_name": "Laptop",
+        "product_price": 1200.0,
+        "stock_quantity": 15,
+        "supplier_id": "S001",
+        "supplier_name": "Hardware Supplier",
+        "supplier_email": "hardwareSupplier@email.com",
+        "product_type": "physical",
+        "weight": 2.5
+    },
+    "P002": {
+        "product_name": "Antivirus License",
+        "product_price": 45.0,
+        "stock_quantity": 100,
+        "supplier_id": "S002",
+        "supplier_name": "Software Supplier",
+        "supplier_email": "softwareSupplier@email.com",
+        "product_type": "digital",
+        "download_size": 250.0
+    }
+}
